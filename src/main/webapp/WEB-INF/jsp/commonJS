@@ -1,0 +1,14 @@
+
+<!--顶部导航条 -->
+            <jsp:include page="/common/home-head.jsp"/>
+            <!--悬浮搜索框-->
+            <jsp:include page="/common/home-search.jsp"/>
+
+
+<jsp:include page="/common/home-headLine.jsp"/>
+
+
+<jsp:include page="/common/home-footer.jsp"/>
+
+<!--左侧导航-->
+    <jsp:include page="/common/home-person-aside.jsp"/>

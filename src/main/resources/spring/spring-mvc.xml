@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            ">
+
+    <context:component-scan base-package="com.xzl.bookstore.controller"/>
+    <!--@RequestMapping @ResponseBody-->
+    <!--第一步：在pom.xml中添加jackson2的依赖-->
+    <!--第二步：在spring-mvc.xml添加<mvc:annotation-driven/>-->
+    <!--第三步：在springmvc的方法上写@ResponseBody-->
+    <mvc:annotation-driven/>
+    <!--配置拦截器  多个顺序执行-->
+    <mvc:interceptors>
+
+        <!--登录拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**/"/>
+            <mvc:exclude-mapping path="/assets/**"/>
+            <mvc:exclude-mapping path="/bootstrap/**"/>
+            <mvc:exclude-mapping path="/common/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/fonts/**"/>
+            <mvc:exclude-mapping path="/html/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/landing/**"/>
+            <mvc:exclude-mapping path="/My97DatePicker/**"/>
+            <bean class="com.xzl.bookstore.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--文件上传解析器-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+        <property name="maxUploadSize">
+            <!-- 10M -->
+            <value>104857600</value>
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
+    </bean>
+
+    <!--静态资源解析-->
+    <!--一旦在这里配置了，访问http://localhost:8080/**/请求时，就不会经过action-->
+    <mvc:resources mapping="/AmazeUI-2.4.2/**" location="/AmazeUI-2.4.2/"/>
+    <mvc:resources mapping="/basic/**" location="/basic/"/>
+    <mvc:resources mapping="/home/**" location="/home/"/>
+    <mvc:resources mapping="/person/**" location="/person/"/>
+    <mvc:resources mapping="/common/**" location="/common/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+
+    <mvc:resources mapping="/My97DatePicker/**" location="/My97DatePicker/"></mvc:resources>
+</beans>

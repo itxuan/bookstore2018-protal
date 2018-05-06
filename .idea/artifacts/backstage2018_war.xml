@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="backstage2018:war">
+    <output-path>$PROJECT_DIR$/backstage2018/target</output-path>
+    <root id="archive" name="bookstore2018.war">
+      <element id="artifact" artifact-name="backstage2018:war exploded" />
+    </root>
+  </artifact>
+</component>

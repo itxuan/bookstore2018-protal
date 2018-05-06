@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzl.bookstore.dao.BookParamMapper" >
+  <resultMap id="BaseResultMap" type="com.xzl.bookstore.pojo.po.BookParam" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="catalog" property="catalog" jdbcType="VARCHAR" />
+    <result column="chapter1" property="chapter1" jdbcType="VARCHAR" />
+    <result column="chapter2" property="chapter2" jdbcType="VARCHAR" />
+    <result column="chapter3" property="chapter3" jdbcType="VARCHAR" />
+    <result column="page" property="page" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="isbn" property="isbn" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, book_id, catalog, chapter1, chapter2, chapter3, page, size, isbn
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xzl.bookstore.pojo.po.BookParamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_book_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_book_param
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_book_param
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xzl.bookstore.pojo.po.BookParamExample" >
+    delete from tb_book_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xzl.bookstore.pojo.po.BookParam" >
+    insert into tb_book_param (id, book_id, catalog, 
+      chapter1, chapter2, chapter3, 
+      page, size, isbn)
+    values (#{id,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{catalog,jdbcType=VARCHAR}, 
+      #{chapter1,jdbcType=VARCHAR}, #{chapter2,jdbcType=VARCHAR}, #{chapter3,jdbcType=VARCHAR}, 
+      #{page,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xzl.bookstore.pojo.po.BookParam" >
+    insert into tb_book_param
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="catalog != null" >
+        catalog,
+      </if>
+      <if test="chapter1 != null" >
+        chapter1,
+      </if>
+      <if test="chapter2 != null" >
+        chapter2,
+      </if>
+      <if test="chapter3 != null" >
+        chapter3,
+      </if>
+      <if test="page != null" >
+        page,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="isbn != null" >
+        isbn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="catalog != null" >
+        #{catalog,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter1 != null" >
+        #{chapter1,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter2 != null" >
+        #{chapter2,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter3 != null" >
+        #{chapter3,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xzl.bookstore.pojo.po.BookParamExample" resultType="java.lang.Integer" >
+    select count(*) from tb_book_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_book_param
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookId != null" >
+        book_id = #{record.bookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.catalog != null" >
+        catalog = #{record.catalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapter1 != null" >
+        chapter1 = #{record.chapter1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapter2 != null" >
+        chapter2 = #{record.chapter2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapter3 != null" >
+        chapter3 = #{record.chapter3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.page != null" >
+        page = #{record.page,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isbn != null" >
+        isbn = #{record.isbn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_book_param
+    set id = #{record.id,jdbcType=INTEGER},
+      book_id = #{record.bookId,jdbcType=INTEGER},
+      catalog = #{record.catalog,jdbcType=VARCHAR},
+      chapter1 = #{record.chapter1,jdbcType=VARCHAR},
+      chapter2 = #{record.chapter2,jdbcType=VARCHAR},
+      chapter3 = #{record.chapter3,jdbcType=VARCHAR},
+      page = #{record.page,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=VARCHAR},
+      isbn = #{record.isbn,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzl.bookstore.pojo.po.BookParam" >
+    update tb_book_param
+    <set >
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="catalog != null" >
+        catalog = #{catalog,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter1 != null" >
+        chapter1 = #{chapter1,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter2 != null" >
+        chapter2 = #{chapter2,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter3 != null" >
+        chapter3 = #{chapter3,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        page = #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzl.bookstore.pojo.po.BookParam" >
+    update tb_book_param
+    set book_id = #{bookId,jdbcType=INTEGER},
+      catalog = #{catalog,jdbcType=VARCHAR},
+      chapter1 = #{chapter1,jdbcType=VARCHAR},
+      chapter2 = #{chapter2,jdbcType=VARCHAR},
+      chapter3 = #{chapter3,jdbcType=VARCHAR},
+      page = #{page,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
