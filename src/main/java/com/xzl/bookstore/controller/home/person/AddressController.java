@@ -22,13 +22,6 @@ import java.util.List;
 @RequestMapping("person")
 public class AddressController {
 
-    @Autowired
-    AddressService addressService;
-    @Autowired
-    OrderService orderService;
-    @Autowired
-    UserService userService;
-
     @RequestMapping(value = "address/list",method = RequestMethod.GET)
     public ModelAndView address(ModelAndView mv, HttpSession session){
 
@@ -45,8 +38,8 @@ public class AddressController {
     @ResponseBody
     @RequestMapping(value = "address/add",method = RequestMethod.POST)
     public Result addAddress(Address address,HttpSession session){
-        User user = (User)session.getAttribute("session_user");
-        address.setUserId(SessionUtil.getUserId(user));
+        User currentUser = getCurrentUser();
+        address.setUserId(SessionUtil.getUserId(currentUser));
         Result result = addressService.save(address);
         return result;
     }
@@ -61,8 +54,8 @@ public class AddressController {
     @ResponseBody
     @RequestMapping(value = "address/update",method = RequestMethod.POST)
     public Result updateAddress(Address address,HttpSession session){
-        User user = (User)session.getAttribute("session_user");
-        address.setUserId(SessionUtil.getUserId(user));
+        User currentUser = getCurrentUser();
+        address.setUserId(SessionUtil.getUserId(currentUser));
         Result result = addressService.update(address);
         return result;
     }
@@ -83,4 +76,10 @@ public class AddressController {
     }
     @Autowired
     HttpSession session;
+    @Autowired
+    AddressService addressService;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    UserService userService;
 }
