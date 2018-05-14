@@ -4,14 +4,15 @@
   <resultMap id="BaseResultMap" type="com.xzl.bookstore.pojo.po.Order" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="order_item_ids" property="orderItemIds" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="receive_name" property="receiveName" jdbcType="VARCHAR" />
-    <result column="receive_telephone" property="receiveTelephone" jdbcType="VARCHAR" />
+    <result column="user_message" property="userMessage" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="order_total" property="orderTotal" jdbcType="BIGINT" />
+    <result column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="send_book_time" property="sendBookTime" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
-    <result column="sum" property="sum" jdbcType="DECIMAL" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, order_item_ids, status, receive_name, receive_telephone, create_time, 
-    end_time, is_delete, sum
+    id, user_id, user_message, status, create_time, end_time, order_total, address_id, 
+    send_book_time, is_delete, order_number
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xzl.bookstore.pojo.po.OrderExample" >
     select
@@ -81,7 +82,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_order
+    from tb_bookstore_order
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,31 +93,31 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from tb_order
+    from tb_bookstore_order
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_order
+    delete from tb_bookstore_order
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xzl.bookstore.pojo.po.OrderExample" >
-    delete from tb_order
+    delete from tb_bookstore_order
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.xzl.bookstore.pojo.po.Order" >
-    insert into tb_order (id, user_id, order_item_ids, 
-      status, receive_name, receive_telephone, 
-      create_time, end_time, is_delete, 
-      sum)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderItemIds,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{receiveName,jdbcType=VARCHAR}, #{receiveTelephone,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=VARCHAR}, 
-      #{sum,jdbcType=DECIMAL})
+    insert into tb_bookstore_order (id, user_id, user_message, 
+      status, create_time, end_time, 
+      order_total, address_id, send_book_time, 
+      is_delete, order_number)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userMessage,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{orderTotal,jdbcType=BIGINT}, #{addressId,jdbcType=INTEGER}, #{sendBookTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xzl.bookstore.pojo.po.Order" >
-    insert into tb_order
+    insert into tb_bookstore_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -124,17 +125,11 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="orderItemIds != null" >
-        order_item_ids,
+      <if test="userMessage != null" >
+        user_message,
       </if>
       <if test="status != null" >
         status,
-      </if>
-      <if test="receiveName != null" >
-        receive_name,
-      </if>
-      <if test="receiveTelephone != null" >
-        receive_telephone,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -142,11 +137,20 @@
       <if test="endTime != null" >
         end_time,
       </if>
+      <if test="orderTotal != null" >
+        order_total,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="sendBookTime != null" >
+        send_book_time,
+      </if>
       <if test="isDelete != null" >
         is_delete,
       </if>
-      <if test="sum != null" >
-        sum,
+      <if test="orderNumber != null" >
+        order_number,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -156,17 +160,11 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="orderItemIds != null" >
-        #{orderItemIds,jdbcType=VARCHAR},
+      <if test="userMessage != null" >
+        #{userMessage,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="receiveName != null" >
-        #{receiveName,jdbcType=VARCHAR},
-      </if>
-      <if test="receiveTelephone != null" >
-        #{receiveTelephone,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -174,22 +172,31 @@
       <if test="endTime != null" >
         #{endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="orderTotal != null" >
+        #{orderTotal,jdbcType=BIGINT},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="sendBookTime != null" >
+        #{sendBookTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="isDelete != null" >
         #{isDelete,jdbcType=VARCHAR},
       </if>
-      <if test="sum != null" >
-        #{sum,jdbcType=DECIMAL},
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xzl.bookstore.pojo.po.OrderExample" resultType="java.lang.Integer" >
-    select count(*) from tb_order
+    select count(*) from tb_bookstore_order
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_order
+    update tb_bookstore_order
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -197,17 +204,11 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.orderItemIds != null" >
-        order_item_ids = #{record.orderItemIds,jdbcType=VARCHAR},
+      <if test="record.userMessage != null" >
+        user_message = #{record.userMessage,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=TINYINT},
-      </if>
-      <if test="record.receiveName != null" >
-        receive_name = #{record.receiveName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.receiveTelephone != null" >
-        receive_telephone = #{record.receiveTelephone,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -215,11 +216,20 @@
       <if test="record.endTime != null" >
         end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.orderTotal != null" >
+        order_total = #{record.orderTotal,jdbcType=BIGINT},
+      </if>
+      <if test="record.addressId != null" >
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendBookTime != null" >
+        send_book_time = #{record.sendBookTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.isDelete != null" >
         is_delete = #{record.isDelete,jdbcType=VARCHAR},
       </if>
-      <if test="record.sum != null" >
-        sum = #{record.sum,jdbcType=DECIMAL},
+      <if test="record.orderNumber != null" >
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -227,38 +237,33 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_order
+    update tb_bookstore_order
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      order_item_ids = #{record.orderItemIds,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT},
-      receive_name = #{record.receiveName,jdbcType=VARCHAR},
-      receive_telephone = #{record.receiveTelephone,jdbcType=VARCHAR},
+      user_message = #{record.userMessage,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      order_total = #{record.orderTotal,jdbcType=BIGINT},
+      address_id = #{record.addressId,jdbcType=INTEGER},
+      send_book_time = #{record.sendBookTime,jdbcType=TIMESTAMP},
       is_delete = #{record.isDelete,jdbcType=VARCHAR},
-      sum = #{record.sum,jdbcType=DECIMAL}
+      order_number = #{record.orderNumber,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xzl.bookstore.pojo.po.Order" >
-    update tb_order
+    update tb_bookstore_order
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="orderItemIds != null" >
-        order_item_ids = #{orderItemIds,jdbcType=VARCHAR},
+      <if test="userMessage != null" >
+        user_message = #{userMessage,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="receiveName != null" >
-        receive_name = #{receiveName,jdbcType=VARCHAR},
-      </if>
-      <if test="receiveTelephone != null" >
-        receive_telephone = #{receiveTelephone,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -266,26 +271,36 @@
       <if test="endTime != null" >
         end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="orderTotal != null" >
+        order_total = #{orderTotal,jdbcType=BIGINT},
+      </if>
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="sendBookTime != null" >
+        send_book_time = #{sendBookTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="isDelete != null" >
         is_delete = #{isDelete,jdbcType=VARCHAR},
       </if>
-      <if test="sum != null" >
-        sum = #{sum,jdbcType=DECIMAL},
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xzl.bookstore.pojo.po.Order" >
-    update tb_order
+    update tb_bookstore_order
     set user_id = #{userId,jdbcType=INTEGER},
-      order_item_ids = #{orderItemIds,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      receive_name = #{receiveName,jdbcType=VARCHAR},
-      receive_telephone = #{receiveTelephone,jdbcType=VARCHAR},
+      user_message = #{userMessage,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
+      order_total = #{orderTotal,jdbcType=BIGINT},
+      address_id = #{addressId,jdbcType=INTEGER},
+      send_book_time = #{sendBookTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=VARCHAR},
-      sum = #{sum,jdbcType=DECIMAL}
+      order_number = #{orderNumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

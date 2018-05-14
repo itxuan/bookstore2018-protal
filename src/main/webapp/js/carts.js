@@ -1,8 +1,7 @@
-
 $(function () {
 
     //全局的checkbox选中和未选中的样式
-    var $allCheckbox = $('input[type="checkbox"]'),//全局的全部checkbox
+    var $allCheckbox = $('input[type="checkbox"]'),     //全局的全部checkbox
         $wholeChexbox = $('.whole_check'),
         $cartBox = $('.cartBox'),                       //每个商铺盒子
         $shopCheckbox = $('.shopChoice'),               //每个商铺的checkbox
@@ -31,6 +30,7 @@ $(function () {
 
     $sonCheckBox.each(function () {
         $(this).click(function () {
+            console.log("$sonCheckBox each")
             if ($(this).is(':checked')) {
                 //判断：所有单个商品是否勾选
                 var len = $sonCheckBox.length;
@@ -141,6 +141,7 @@ $(function () {
     });
 
     $reduce.click(function () {
+
         var $inputVal = $(this).next('input'),
             $count = parseInt($inputVal.val())-1,
             $priceTotalObj = $(this).parents('.order_lists').find('.sum_price'),
@@ -149,8 +150,12 @@ $(function () {
         if($inputVal.val()>1){
             $inputVal.val($count);
             $priceTotalObj.html('￥'+$priceTotal);
+            // $inputVal.val($count);
+            // $priceTotalObj.html('价格计算中');
+
         }
         if($inputVal.val()==1 && !$(this).hasClass('reSty')){
+
             $(this).addClass('reSty');
         }
         totalMoney();
@@ -221,6 +226,9 @@ $(function () {
         });
         $('.total_text').html('￥'+total_money);
         $('.piece_num').html(total_count);
+
+        // console.log(total_money,total_count);
+
         if(total_money!=0 && total_count!=0){
             if(!calBtn.hasClass('btn_sty')){
                 calBtn.addClass('btn_sty');
@@ -231,4 +239,6 @@ $(function () {
             }
         }
     }
+
+
 });

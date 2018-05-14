@@ -6,8 +6,8 @@
     <result column="image" property="image" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="news_type" property="newsType" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.xzl.bookstore.pojo.po.News" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, image, title, create_time, status, user_id
+    id, image, title, create_time, status, news_type
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -84,7 +84,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from tb_news
+    from tb_bookstore_news
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -98,7 +98,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_news
+    from tb_bookstore_news
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -111,29 +111,29 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from tb_news
+    from tb_bookstore_news
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_news
+    delete from tb_bookstore_news
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xzl.bookstore.pojo.po.NewsExample" >
-    delete from tb_news
+    delete from tb_bookstore_news
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.xzl.bookstore.pojo.po.News" >
-    insert into tb_news (id, image, title, 
-      create_time, status, user_id, 
+    insert into tb_bookstore_news (id, image, title, 
+      create_time, status, news_type, 
       content)
     values (#{id,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{newsType,jdbcType=INTEGER}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xzl.bookstore.pojo.po.News" >
-    insert into tb_news
+    insert into tb_bookstore_news
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -150,8 +150,8 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="userId != null" >
-        user_id,
+      <if test="newsType != null" >
+        news_type,
       </if>
       <if test="content != null" >
         content,
@@ -171,10 +171,10 @@
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+      <if test="newsType != null" >
+        #{newsType,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -182,13 +182,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xzl.bookstore.pojo.po.NewsExample" resultType="java.lang.Integer" >
-    select count(*) from tb_news
+    select count(*) from tb_bookstore_news
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_news
+    update tb_bookstore_news
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -203,10 +203,10 @@
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.newsType != null" >
+        news_type = #{record.newsType,jdbcType=INTEGER},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -217,32 +217,32 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update tb_news
+    update tb_bookstore_news
     set id = #{record.id,jdbcType=INTEGER},
       image = #{record.image,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      news_type = #{record.newsType,jdbcType=INTEGER},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_news
+    update tb_bookstore_news
     set id = #{record.id,jdbcType=INTEGER},
       image = #{record.image,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      news_type = #{record.newsType,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xzl.bookstore.pojo.po.News" >
-    update tb_news
+    update tb_bookstore_news
     <set >
       <if test="image != null" >
         image = #{image,jdbcType=VARCHAR},
@@ -254,10 +254,10 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="newsType != null" >
+        news_type = #{newsType,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
@@ -266,22 +266,22 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xzl.bookstore.pojo.po.News" >
-    update tb_news
+    update tb_bookstore_news
     set image = #{image,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      news_type = #{newsType,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xzl.bookstore.pojo.po.News" >
-    update tb_news
+    update tb_bookstore_news
     set image = #{image,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      news_type = #{newsType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -15,6 +15,10 @@ public class Admin {
 
     private Date createTime;
 
+    private String lastLoginIp;
+
+    private String adminIcon;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +65,21 @@ public class Admin {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getLastLoginIp() {
+        return lastLoginIp;
+    }
+
+    public void setLastLoginIp(String lastLoginIp) {
+        this.lastLoginIp = lastLoginIp == null ? null : lastLoginIp.trim();
+    }
+
+    public String getAdminIcon() {
+        return adminIcon;
+    }
+
+    public void setAdminIcon(String adminIcon) {
+        this.adminIcon = adminIcon == null ? null : adminIcon.trim();
     }
 }

@@ -15,4 +15,7 @@ public interface OrderService {
 
     Order getByOrderId(Integer orderId);
 
+    Map<String,Object> createOrder(List<Integer> ids, List<Integer> amounts, Integer userId);
+
+    Map<String,Object> selectOrderAndOrderItemByOrderId(Integer orderId);
 }

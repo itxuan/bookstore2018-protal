@@ -13,11 +13,17 @@ public class BookParam {
 
     private String chapter3;
 
-    private String page;
+    private String bookPage;
 
     private String size;
 
     private String isbn;
+
+    private String bookEdition;
+
+    private String bookWords;
+
+    private String bookPack;
 
     public Integer getId() {
         return id;
@@ -67,12 +73,12 @@ public class BookParam {
         this.chapter3 = chapter3 == null ? null : chapter3.trim();
     }
 
-    public String getPage() {
-        return page;
+    public String getBookPage() {
+        return bookPage;
     }
 
-    public void setPage(String page) {
-        this.page = page == null ? null : page.trim();
+    public void setBookPage(String bookPage) {
+        this.bookPage = bookPage == null ? null : bookPage.trim();
     }
 
     public String getSize() {
@@ -89,5 +95,29 @@ public class BookParam {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn == null ? null : isbn.trim();
+    }
+
+    public String getBookEdition() {
+        return bookEdition;
+    }
+
+    public void setBookEdition(String bookEdition) {
+        this.bookEdition = bookEdition == null ? null : bookEdition.trim();
+    }
+
+    public String getBookWords() {
+        return bookWords;
+    }
+
+    public void setBookWords(String bookWords) {
+        this.bookWords = bookWords == null ? null : bookWords.trim();
+    }
+
+    public String getBookPack() {
+        return bookPack;
+    }
+
+    public void setBookPack(String bookPack) {
+        this.bookPack = bookPack == null ? null : bookPack.trim();
     }
 }

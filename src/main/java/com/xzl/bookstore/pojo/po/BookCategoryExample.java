@@ -115,52 +115,52 @@ public class BookCategoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Long value) {
+        public Criteria andIdEqualTo(Integer value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Long value) {
+        public Criteria andIdNotEqualTo(Integer value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Long value) {
+        public Criteria andIdGreaterThan(Integer value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Long value) {
+        public Criteria andIdLessThan(Integer value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Long value) {
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Long> values) {
+        public Criteria andIdIn(List<Integer> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Long> values) {
+        public Criteria andIdNotIn(List<Integer> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Long value1, Long value2) {
+        public Criteria andIdBetween(Integer value1, Integer value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Long value1, Long value2) {
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -495,52 +495,52 @@ public class BookCategoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsParentEqualTo(Byte value) {
+        public Criteria andIsParentEqualTo(Integer value) {
             addCriterion("is_parent =", value, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentNotEqualTo(Byte value) {
+        public Criteria andIsParentNotEqualTo(Integer value) {
             addCriterion("is_parent <>", value, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentGreaterThan(Byte value) {
+        public Criteria andIsParentGreaterThan(Integer value) {
             addCriterion("is_parent >", value, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentGreaterThanOrEqualTo(Byte value) {
+        public Criteria andIsParentGreaterThanOrEqualTo(Integer value) {
             addCriterion("is_parent >=", value, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentLessThan(Byte value) {
+        public Criteria andIsParentLessThan(Integer value) {
             addCriterion("is_parent <", value, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentLessThanOrEqualTo(Byte value) {
+        public Criteria andIsParentLessThanOrEqualTo(Integer value) {
             addCriterion("is_parent <=", value, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentIn(List<Byte> values) {
+        public Criteria andIsParentIn(List<Integer> values) {
             addCriterion("is_parent in", values, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentNotIn(List<Byte> values) {
+        public Criteria andIsParentNotIn(List<Integer> values) {
             addCriterion("is_parent not in", values, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentBetween(Byte value1, Byte value2) {
+        public Criteria andIsParentBetween(Integer value1, Integer value2) {
             addCriterion("is_parent between", value1, value2, "isParent");
             return (Criteria) this;
         }
 
-        public Criteria andIsParentNotBetween(Byte value1, Byte value2) {
+        public Criteria andIsParentNotBetween(Integer value1, Integer value2) {
             addCriterion("is_parent not between", value1, value2, "isParent");
             return (Criteria) this;
         }

@@ -1,7 +1,7 @@
 package com.xzl.bookstore.pojo.po;
 
 public class OrderItem {
-    private Integer id;
+    private String id;
 
     private Integer bookId;
 
@@ -9,14 +9,16 @@ public class OrderItem {
 
     private Long price;
 
-    private Long total;
+    private Integer orderId;
 
-    public Integer getId() {
+    private Integer bookParamId;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public Integer getBookId() {
@@ -43,22 +45,19 @@ public class OrderItem {
         this.price = price;
     }
 
-    public Long getTotal() {
-        return total;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setTotal(Long total) {
-        this.total = total;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    @Override
-    public String toString() {
-        return "OrderItem{" +
-                "id=" + id +
-                ", bookId=" + bookId +
-                ", amount=" + amount +
-                ", price=" + price +
-                ", total=" + total +
-                '}';
+    public Integer getBookParamId() {
+        return bookParamId;
+    }
+
+    public void setBookParamId(Integer bookParamId) {
+        this.bookParamId = bookParamId;
     }
 }

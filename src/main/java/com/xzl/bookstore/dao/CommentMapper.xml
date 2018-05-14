@@ -5,15 +5,13 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="is_image" property="isImage" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="is_image" property="isImage" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="is_detele" property="isDetele" jdbcType="VARCHAR" />
-    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="is_detele" property="isDetele" jdbcType="INTEGER" />
     <result column="book_id" property="bookId" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.xzl.bookstore.pojo.po.CommentWithBLOBs" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
-    <result column="image" property="image" jdbcType="LONGVARCHAR" />
+    <result column="comment_star" property="commentStar" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,34 +72,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, order_id, is_image, create_time, is_detele, like_count, book_id
+    id, user_id, order_id, content, image, is_image, create_time, is_detele, book_id, 
+    comment_star
   </sql>
-  <sql id="Blob_Column_List" >
-    content, image
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xzl.bookstore.pojo.po.CommentExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tb_comment
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xzl.bookstore.pojo.po.CommentExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_comment
+    from tb_bookstore_comment
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -109,36 +89,34 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tb_comment
+    from tb_bookstore_comment
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_comment
+    delete from tb_bookstore_comment
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xzl.bookstore.pojo.po.CommentExample" >
-    delete from tb_comment
+    delete from tb_bookstore_comment
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xzl.bookstore.pojo.po.CommentWithBLOBs" >
-    insert into tb_comment (id, user_id, order_id, 
-      is_image, create_time, is_detele, 
-      like_count, book_id, content, 
-      image)
+  <insert id="insert" parameterType="com.xzl.bookstore.pojo.po.Comment" >
+    insert into tb_bookstore_comment (id, user_id, order_id, 
+      content, image, is_image, 
+      create_time, is_detele, book_id, 
+      comment_star)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
-      #{isImage,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{isDetele,jdbcType=VARCHAR}, 
-      #{likeCount,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, 
-      #{image,jdbcType=LONGVARCHAR})
+      #{content,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{isImage,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{isDetele,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, 
+      #{commentStar,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.xzl.bookstore.pojo.po.CommentWithBLOBs" >
-    insert into tb_comment
+  <insert id="insertSelective" parameterType="com.xzl.bookstore.pojo.po.Comment" >
+    insert into tb_bookstore_comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -149,6 +127,12 @@
       <if test="orderId != null" >
         order_id,
       </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
       <if test="isImage != null" >
         is_image,
       </if>
@@ -158,17 +142,11 @@
       <if test="isDetele != null" >
         is_detele,
       </if>
-      <if test="likeCount != null" >
-        like_count,
-      </if>
       <if test="bookId != null" >
         book_id,
       </if>
-      <if test="content != null" >
-        content,
-      </if>
-      <if test="image != null" >
-        image,
+      <if test="commentStar != null" >
+        comment_star,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -181,37 +159,37 @@
       <if test="orderId != null" >
         #{orderId,jdbcType=INTEGER},
       </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
       <if test="isImage != null" >
-        #{isImage,jdbcType=VARCHAR},
+        #{isImage,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDetele != null" >
-        #{isDetele,jdbcType=VARCHAR},
-      </if>
-      <if test="likeCount != null" >
-        #{likeCount,jdbcType=INTEGER},
+        #{isDetele,jdbcType=INTEGER},
       </if>
       <if test="bookId != null" >
         #{bookId,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="image != null" >
-        #{image,jdbcType=LONGVARCHAR},
+      <if test="commentStar != null" >
+        #{commentStar,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xzl.bookstore.pojo.po.CommentExample" resultType="java.lang.Integer" >
-    select count(*) from tb_comment
+    select count(*) from tb_bookstore_comment
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_comment
+    update tb_bookstore_comment
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -222,64 +200,50 @@
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
       <if test="record.isImage != null" >
-        is_image = #{record.isImage,jdbcType=VARCHAR},
+        is_image = #{record.isImage,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.isDetele != null" >
-        is_detele = #{record.isDetele,jdbcType=VARCHAR},
-      </if>
-      <if test="record.likeCount != null" >
-        like_count = #{record.likeCount,jdbcType=INTEGER},
+        is_detele = #{record.isDetele,jdbcType=INTEGER},
       </if>
       <if test="record.bookId != null" >
         book_id = #{record.bookId,jdbcType=INTEGER},
       </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="record.image != null" >
-        image = #{record.image,jdbcType=LONGVARCHAR},
+      <if test="record.commentStar != null" >
+        comment_star = #{record.commentStar,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update tb_comment
-    set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      order_id = #{record.orderId,jdbcType=INTEGER},
-      is_image = #{record.isImage,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      is_detele = #{record.isDetele,jdbcType=VARCHAR},
-      like_count = #{record.likeCount,jdbcType=INTEGER},
-      book_id = #{record.bookId,jdbcType=INTEGER},
-      content = #{record.content,jdbcType=LONGVARCHAR},
-      image = #{record.image,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_comment
+    update tb_bookstore_comment
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       order_id = #{record.orderId,jdbcType=INTEGER},
-      is_image = #{record.isImage,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
+      is_image = #{record.isImage,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      is_detele = #{record.isDetele,jdbcType=VARCHAR},
-      like_count = #{record.likeCount,jdbcType=INTEGER},
-      book_id = #{record.bookId,jdbcType=INTEGER}
+      is_detele = #{record.isDetele,jdbcType=INTEGER},
+      book_id = #{record.bookId,jdbcType=INTEGER},
+      comment_star = #{record.commentStar,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xzl.bookstore.pojo.po.CommentWithBLOBs" >
-    update tb_comment
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzl.bookstore.pojo.po.Comment" >
+    update tb_bookstore_comment
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
@@ -287,52 +251,41 @@
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=INTEGER},
       </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
       <if test="isImage != null" >
-        is_image = #{isImage,jdbcType=VARCHAR},
+        is_image = #{isImage,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDetele != null" >
-        is_detele = #{isDetele,jdbcType=VARCHAR},
-      </if>
-      <if test="likeCount != null" >
-        like_count = #{likeCount,jdbcType=INTEGER},
+        is_detele = #{isDetele,jdbcType=INTEGER},
       </if>
       <if test="bookId != null" >
         book_id = #{bookId,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="image != null" >
-        image = #{image,jdbcType=LONGVARCHAR},
+      <if test="commentStar != null" >
+        comment_star = #{commentStar,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xzl.bookstore.pojo.po.CommentWithBLOBs" >
-    update tb_comment
-    set user_id = #{userId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER},
-      is_image = #{isImage,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      is_detele = #{isDetele,jdbcType=VARCHAR},
-      like_count = #{likeCount,jdbcType=INTEGER},
-      book_id = #{bookId,jdbcType=INTEGER},
-      content = #{content,jdbcType=LONGVARCHAR},
-      image = #{image,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.xzl.bookstore.pojo.po.Comment" >
-    update tb_comment
+    update tb_bookstore_comment
     set user_id = #{userId,jdbcType=INTEGER},
       order_id = #{orderId,jdbcType=INTEGER},
-      is_image = #{isImage,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      is_image = #{isImage,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      is_detele = #{isDetele,jdbcType=VARCHAR},
-      like_count = #{likeCount,jdbcType=INTEGER},
-      book_id = #{bookId,jdbcType=INTEGER}
+      is_detele = #{isDetele,jdbcType=INTEGER},
+      book_id = #{bookId,jdbcType=INTEGER},
+      comment_star = #{commentStar,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

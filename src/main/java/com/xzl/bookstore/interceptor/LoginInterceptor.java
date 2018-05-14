@@ -27,10 +27,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         //获取请求的url
         //判断url是否是公开 地址（实际使用时将公开 地址配置配置文件中）
         //这里公开地址是登陆提交的地址
-        if(url.indexOf("login")>=0){
-            //如果进行登陆提交，放行
+        if(url.indexOf("home") >= 0){
+            //如果首页、登录、注册、搜索等等 就放行
             return true;
         }
+
         //判断session中是否存在登录的User
         HttpSession session  = httpServletRequest.getSession();
         //从session中取出用户身份信息
@@ -50,7 +51,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         //执行这里表示用户身份需要认证，跳转登陆页面
         httpServletRequest.getRequestDispatcher("/WEB-INF/jsp/home/login.jsp").forward(httpServletRequest, httpServletResponse);
         return false;
-
     }
 
     @Override

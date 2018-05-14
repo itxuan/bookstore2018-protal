@@ -16,27 +16,33 @@
     <link href="${ctx}/css/skin.css" rel="stylesheet" type="text/css" />
     <script src="${ctx}/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
     <script src="${ctx}/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
-
+    <style type="text/css">
+        .overHiddenClass{
+            width: 100px;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
 </head>
-
 <body>
 <div class="hmtop">
     <!--顶部导航条 -->
 
     <jsp:include page="/common/home-head.jsp"></jsp:include>
-
     <!--悬浮搜索框-->
-
     <jsp:include page="/common/home-search.jsp"></jsp:include>
 </div>
 <div class="banner">
     <!--轮播 -->
     <div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
         <ul class="am-slides">
-            <li class="banner1"><a href=""><img src="${ctx}/images/ad1.jpg" /></a></li>
-            <li class="banner2"><a href=""><img src="${ctx}/images/ad2.jpg" /></a></li>
-            <li class="banner3"><a href=""><img src="${ctx}/images/ad3.jpg" /></a></li>
-            <li class="banner4"><a href=""><img src="${ctx}/images/ad4.jpg" /></a></li>
+            <c:forEach items="${advertList}" var="advert" varStatus="state">
+                <li class="banner${state.index+1}">
+                    <a href="${ctx}/home${advert.url}"><img src="${advert.image}" /></a>
+                </li>
+            </c:forEach>
         </ul>
     </div>
     <div class="clear"></div>
@@ -46,19 +52,12 @@
         <div class="long-title"><span class="all-goods">全部分类</span></div>
         <div class="nav-cont">
             <ul>
-                <%--<li class="index"><a href="#">首页</a></li>--%>
-                <%--<li class="qc"><a href="#">闪购</a></li>--%>
-                <%--<li class="qc"><a href="#">限时抢</a></li>--%>
-                <%--<li class="qc"><a href="#">团购</a></li>--%>
-                <%--<li class="qc last"><a href="#">大包装</a></li>--%>
+
             </ul>
-
         </div>
-
         <!--分类导航-->
         <jsp:include page="/common/home-nav-sort.jsp"></jsp:include>
-        <!--轮播-->
-
+        <!--轮播实现代码-->
         <script type="text/javascript">
             (function() {
                 $('.am-slider').flexslider();
@@ -75,7 +74,6 @@
                 });
             })
         </script>
-
         <!--小导航 -->
         <div class="am-g am-g-fixed smallnav">
             <div class="am-u-sm-3">
@@ -99,10 +97,8 @@
                 </a>
             </div>
         </div>
-
-        <!--走马灯 -->
-        <%--<jsp:include page="/common/home-nav.jsp"></jsp:include>--%>
-
+        <!--公告 -->
+        <jsp:include page="/common/home-nav.jsp"></jsp:include>
     </div>
     <script type="text/javascript">
         if ($(window).width() < 640) {
@@ -122,128 +118,28 @@
     </script>
 </div>
 <div class="shopMainbg">
-    <div class="shopMain" id="shopmain">
-
-        <!--今日推荐 -->
-        <div class="am-g am-g-fixed recommendation">
-            <div class="clock am-u-sm-3">
-            <img src="../images/2016.png "></img>
-            <p>今日<br>推荐</p>
-        </div>
-        <div class="am-u-sm-4 am-u-lg-3 ">
-            <div class="info ">
-                <h3>真的有鱼</h3>
-                <h4>开年福利篇</h4>
-            </div>
-            <div class="recommendationMain one">
-                <a href="introduction.html"><img src="${ctx}/images/tj.png "/> </a>
-            </div>
-        </div>
-        <div class="am-u-sm-4 am-u-lg-3 ">
-            <div class="info ">
-                <h3>囤货过冬</h3>
-                <h4>让爱早回家</h4>
-            </div>
-            <div class="recommendationMain two">
-                <img src="../images/tj1.png "/>
-            </div>
-        </div>
-        <div class="am-u-sm-4 am-u-lg-3 ">
-            <div class="info ">
-                <h3>浪漫情人节</h3>
-                <h4>甜甜蜜蜜</h4>
-            </div>
-            <div class="recommendationMain three">
-                <img src="../images/tj2.png "/>
-            </div>
-        </div>
-
-    </div>
-    <div class="clear "></div>
-
-    <!--热门活动 -->
-
-    <%--<div class="am-container activity ">--%>
-        <%--<div class="shopTitle ">--%>
-            <%--<h4>活动</h4>--%>
-            <%--<h3>每期活动 优惠享不停 </h3>--%>
-            <%--<span class="more ">--%>
-                              <%--<a href="# ">全部活动<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>--%>
-                        <%--</span>--%>
-        <%--</div>--%>
-        <%--<div class="am-g am-g-fixed ">--%>
-            <%--<div class="am-u-sm-3 ">--%>
-                <%--<div class="icon-sale one "></div>--%>
-                <%--<h4>秒杀</h4>--%>
-                <%--<div class="activityMain ">--%>
-                    <%--<img src="../images/activity1.jpg "></img>--%>
-                <%--</div>--%>
-                <%--<div class="info ">--%>
-                    <%--<h3>春节送礼优选</h3>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-            <%--<div class="am-u-sm-3 ">--%>
-                <%--<div class="icon-sale two "></div>--%>
-                <%--<h4>特惠</h4>--%>
-                <%--<div class="activityMain ">--%>
-                    <%--<img src="../images/activity2.jpg "></img>--%>
-                <%--</div>--%>
-                <%--<div class="info ">--%>
-                    <%--<h3>春节送礼优选</h3>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-            <%--<div class="am-u-sm-3 ">--%>
-                <%--<div class="icon-sale three "></div>--%>
-                <%--<h4>团购</h4>--%>
-                <%--<div class="activityMain ">--%>
-                    <%--<img src="../images/activity3.jpg "></img>--%>
-                <%--</div>--%>
-                <%--<div class="info ">--%>
-                    <%--<h3>春节送礼优选</h3>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-            <%--<div class="am-u-sm-3 last ">--%>
-                <%--<div class="icon-sale "></div>--%>
-                <%--<h4>超值</h4>--%>
-                <%--<div class="activityMain ">--%>
-                    <%--<img src="../images/activity.jpg "></img>--%>
-                <%--</div>--%>
-                <%--<div class="info ">--%>
-                    <%--<h3>春节送礼优选</h3>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<div class="clear "></div>--%>
 
 
     <div id="f1">
-        <!--甜点-->
-
+        <!--少儿-->
         <div class="am-container ">
             <div class="shopTitle ">
-                <h4>甜品</h4>
-                <h3>每一道甜品都有一个故事</h3>
+                <h4>少儿</h4>
+                <h3>用心关注孩子的成长</h3>
                 <div class="today-brands ">
-                    <a href="# ">桂花糕</a>
-                    <a href="# ">奶皮酥</a>
-                    <a href="# ">栗子糕 </a>
-                    <a href="# ">马卡龙</a>
-                    <a href="# ">铜锣烧</a>
-                    <a href="# ">豌豆黄</a>
+                    <a href="# ">1-2岁</a>
+                    <a href="# ">3-4岁</a>
+                    <a href="# ">5-7岁 </a>
+                    <a href="# ">7-10岁</a>
                 </div>
                 <span class="more ">
-                    <a href="# ">更多美味<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
-                        </span>
+                    <a href="# ">更多相关<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
+                </span>
             </div>
         </div>
 
         <div class="am-g am-g-fixed floodFour">
-            <div class="am-u-sm-5 am-u-md-4 text-one list ">
+            <div class="am-u-sm-5 am-u-md-4 text-two list ">
                 <div class="word">
                     <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
                     <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
@@ -252,102 +148,158 @@
                     <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
                     <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
                 </div>
-                <a href="# ">
-                    <div class="outer-con ">
-                        <div class="title ">
-                            开抢啦！
-                        </div>
-                        <div class="sub-title ">
-                            零食大礼包
-                        </div>
-                    </div>
-                    <img src="../images/act1.png " />
-                </a>
+
                 <div class="triangle-topright"></div>
             </div>
-
-            <div class="am-u-sm-7 am-u-md-4 text-two sug">
+            <c:forEach items="${childPageInfo.list}" var="childBook">
+            <!-- start -->
+                <div class="am-u-sm-7 am-u-md-4 text-two">
                 <div class="outer-con ">
-                    <div class="title ">
-                        雪之恋和风大福
+                    <div class="title overHiddenClass">
+                        ${childBook.bookname}
                     </div>
                     <div class="sub-title ">
-                        ¥13.8
+                        <label style="color: red">价格：</label> ${childBook.currentPrice}
                     </div>
-                    <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
+                    <a href="javascript:indexAddToCart('${childBook.id}')">
+                        <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
+                    </a>
                 </div>
-                <a href="# "><img src="../images/2.jpg" /></a>
+                    <a href="javascript:bookDetail('${childBook.id}')">
+                        <img src="${childBook.bookIcon}" />
+                    </a>
             </div>
+            </c:forEach>
+            <!-- end -->
+        </div>
 
-            <div class="am-u-sm-7 am-u-md-4 text-two">
-                <div class="outer-con ">
-                    <div class="title ">
-                        雪之恋和风大福
-                    </div>
-                    <div class="sub-title ">
-                        ¥13.8
-                    </div>
-                    <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
+        <div class="clear "></div>
+        <br>
+
+    </div>
+    <div class="clear "></div>
+
+    <!--生活-->
+
+    <div id="f2">
+        <!--少儿-->
+        <div class="am-container ">
+            <div class="shopTitle ">
+                <h4>文学</h4>
+                <h3>生活需要文学气息</h3>
+                <div class="today-brands ">
+                    <a href="# ">1-2岁</a>
+                    <a href="# ">3-4岁</a>
+                    <a href="# ">5-7岁 </a>
                 </div>
-                <a href="# "><img src="../images/1.jpg" /></a>
+                <span class="more ">
+                    <a href="# ">更多相关<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
+                </span>
             </div>
+        </div>
 
-
-            <div class="am-u-sm-3 am-u-md-2 text-three big">
-                <div class="outer-con ">
-                    <div class="title ">
-                        小优布丁
-                    </div>
-                    <div class="sub-title ">
-                        ¥4.8
-                    </div>
-                    <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
+        <div class="am-g am-g-fixed floodFour">
+            <div class="am-u-sm-5 am-u-md-4 text-two list ">
+                <div class="word">
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
                 </div>
-                <a href="# "><img src="../images/5.jpg" /></a>
-            </div>
 
-            <div class="am-u-sm-3 am-u-md-2 text-three sug">
-                <div class="outer-con ">
-                    <div class="title ">
-                        小优布丁
+                <div class="triangle-topright"></div>
+            </div>
+            <c:forEach items="${wenXuePageInfo.list}" var="wenXuePageBook">
+                <!-- start -->
+                <div class="am-u-sm-7 am-u-md-4 text-two">
+                    <div class="outer-con ">
+                        <div class="title overHiddenClass">
+                                ${wenXuePageBook.bookname}
+                        </div>
+                        <div class="sub-title ">
+                            <label style="color: red">价格：</label> ${wenXuePageBook.currentPrice}
+                        </div>
+                        <a href="javascript:indexAddToCart('${wenXuePageBook.id}')">
+                            <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
+                        </a>
                     </div>
-                    <div class="sub-title ">
-                        ¥4.8
-                    </div>
-                    <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
+                    <a href="${ctx}/home/detail?id="+${childBook.id}>
+                        <img src="${childBook.bookIcon}" />
+                    </a>
                 </div>
-                <a href="# "><img src="../images/3.jpg" /></a>
-            </div>
-
-            <div class="am-u-sm-3 am-u-md-2 text-three ">
-                <div class="outer-con ">
-                    <div class="title ">
-                        小优布丁
-                    </div>
-                    <div class="sub-title ">
-                        ¥4.8
-                    </div>
-                    <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
-                </div>
-                <a href="# "><img src="../images/4.jpg" /></a>
-            </div>
-
-            <div class="am-u-sm-3 am-u-md-2 text-three last big ">
-                <div class="outer-con ">
-                    <div class="title ">
-                        小优布丁
-                    </div>
-                    <div class="sub-title ">
-                        ¥4.8
-                    </div>
-                    <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
-                </div>
-                <a href="# "><img src="../images/5.jpg" /></a>
-            </div>
-
+            </c:forEach>
+            <!-- end -->
         </div>
         <div class="clear "></div>
+        <br>
+
     </div>
+    <div class="clear "></div>
+
+    <div id="f3">
+        <!--生活-->
+        <div class="am-container ">
+            <div class="shopTitle ">
+                <h4>生活</h4>
+                <h3>教你生活小窍门</h3>
+                <div class="today-brands ">
+                    <a href="# ">1-2岁</a>
+                    <a href="# ">3-4岁</a>
+                    <a href="# ">5-7岁 </a>
+                    <a href="# ">7-10岁</a>
+                </div>
+                <span class="more ">
+                    <a href="# ">更多相关<i class="am-icon-angle-right" style="padding-left:10px ;" ></i></a>
+                </span>
+            </div>
+        </div>
+
+        <div class="am-g am-g-fixed floodFour">
+            <div class="am-u-sm-5 am-u-md-4 text-two list ">
+                <div class="word">
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                    <a class="outer" href="#"><span class="inner"><b class="text">核桃</b></span></a>
+                </div>
+
+                <div class="triangle-topright"></div>
+            </div>
+            <c:forEach items="${childPageInfo.list}" var="childBook">
+                <!-- start -->
+                <div class="am-u-sm-7 am-u-md-4 text-two">
+                    <div class="outer-con ">
+                        <div class="title overHiddenClass">
+                                ${childBook.bookname}
+                        </div>
+                        <div class="sub-title ">
+                            <label style="color: red">价格：</label> ${childBook.currentPrice}
+                        </div>
+                        <a href="javascript:indexAddToCart('${childBook.id}')">
+                            <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
+                        </a>
+                    </div>
+                    <a href="# ">
+                        <c:if test="${childBook.bookIcon != null}">
+                            <img src="${childBook.bookIcon}" />
+                        </c:if>
+                    </a>
+                </div>
+            </c:forEach>
+            <!-- end -->
+        </div>
+
+        <div class="clear "></div>
+        <br>
+
+    </div>
+    <div class="clear "></div>
+
+</div>
     <!--底部版权-->
     <jsp:include page="/common/home-footer.jsp"></jsp:include>
 </div>
@@ -371,3 +323,27 @@
 </body>
 
 </html>
+<script>
+    function indexAddToCart(bookId) {
+        console.log("index add book to cart");
+
+        $.ajax({
+            type:'post',
+            url:'${ctx}/person/cart/add',
+            data:{
+                'bookId':bookId
+            },
+            success:function (data) {
+                console.log(data);
+                if(data.code == 1){
+                    alert(data.message);
+                }
+            }
+        })
+    }
+</script>
+<script>
+    function bookDetail(bookId){
+        location.href='${ctx}/home/detail?id='+bookId;
+    }
+</script>

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 
@@ -49,7 +49,9 @@
         <div class="main-wrap">
 
             <div class="am-cf am-padding">
-                <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">修改密码</strong> / <small>Password</small></div>
+                <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">修改密码</strong> /
+                    <small>Password</small>
+                </div>
             </div>
             <hr/>
             <!--进度条-->
@@ -58,7 +60,7 @@
 							<span class="step-1 step">
                                 <em class="u-progress-stage-bg"></em>
                                 <i class="u-stage-icon-inner">1<em class="bg"></em></i>
-                                <p class="stage-name">重置密码</p>
+                                <p class="stage-name">修改密码</p>
                             </span>
                     <span class="step-2 step">
                                 <em class="u-progress-stage-bg"></em>
@@ -81,13 +83,13 @@
                 <div class="am-form-group">
                     <label for="user-new-password" class="am-form-label">新密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-new-password" placeholder="由数字、字母组合">
+                        <input type="password" id="user-new-password" placeholder="密码长度不少于6位">
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="user-confirm-password" class="am-form-label">确认密码</label>
                     <div class="am-form-content">
-                        <input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码">
+                        <input type="password" id="user-confirm-password" placeholder="请再次输入新密码">
                     </div>
                 </div>
                 <div class="info-btn">
@@ -111,17 +113,21 @@
 
 <script>
     $("#saveBtn").click(function () {
-        var orderPassword = $('#user-old-password').val();
+        var oldPassword = $('#user-old-password').val();
         var newPassword1 = $('#user-new-password').val();
         var newPassword2 = $('#user-confirm-password').val();
-        console.log(orderPassword);
+        console.log(oldPassword);
         console.log(newPassword1);
         console.log(newPassword2);
-        if(newPassword1 == null || newPassword1 == ""){
-            alert("新密码不能为空");
+        if (oldPassword == null || oldPassword == "") {
+            alert("旧密码不能为空");
+            return
+        }
+        if (newPassword1 == null || newPassword1 == "" || newPassword1.length < 6) {
+            alert("新密码不能为空，且长度不少于6位");
             return false;
         }
-        if(!(newPassword1 === newPassword2)){
+        if (!(newPassword1 === newPassword2)) {
             alert("两次密码输入不一致");
             return false;
         }
@@ -130,12 +136,12 @@
             type: "post",
             url: "${ctx}/person/password/update",
             data: {
-                'orderPassword':orderPassword,
-                'newPassword':newPassword1,
+                'oldPassword': oldPassword,
+                'newPassword': newPassword1,
             },
             dataType: "json",
-            success: function(result) {                    //result为返回值
-                if(result.success) {
+            success: function (result) {                    //result为返回值
+                if (result.success) {
                     alert("密码修改成功");
                     window.location.reload();
                 } else {

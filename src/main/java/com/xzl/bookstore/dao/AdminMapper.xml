@@ -8,6 +8,8 @@
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="is_lock" property="isLock" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="admin_icon" property="adminIcon" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, admin_name, password, last_login_time, is_lock, create_time
+    id, admin_name, password, last_login_time, is_lock, create_time, last_login_ip, admin_icon
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xzl.bookstore.pojo.po.AdminExample" >
     select
@@ -76,7 +78,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_admin
+    from tb_bookstore_admin
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,29 +89,29 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from tb_admin
+    from tb_bookstore_admin
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_admin
+    delete from tb_bookstore_admin
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xzl.bookstore.pojo.po.AdminExample" >
-    delete from tb_admin
+    delete from tb_bookstore_admin
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.xzl.bookstore.pojo.po.Admin" >
-    insert into tb_admin (id, admin_name, password, 
-      last_login_time, is_lock, create_time
-      )
+    insert into tb_bookstore_admin (id, admin_name, password, 
+      last_login_time, is_lock, create_time, 
+      last_login_ip, admin_icon)
     values (#{id,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{isLock,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{isLock,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginIp,jdbcType=VARCHAR}, #{adminIcon,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xzl.bookstore.pojo.po.Admin" >
-    insert into tb_admin
+    insert into tb_bookstore_admin
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -128,6 +130,12 @@
       </if>
       <if test="createTime != null" >
         create_time,
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip,
+      </if>
+      <if test="adminIcon != null" >
+        admin_icon,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -149,16 +157,22 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="adminIcon != null" >
+        #{adminIcon,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xzl.bookstore.pojo.po.AdminExample" resultType="java.lang.Integer" >
-    select count(*) from tb_admin
+    select count(*) from tb_bookstore_admin
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_admin
+    update tb_bookstore_admin
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -178,25 +192,33 @@
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.lastLoginIp != null" >
+        last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminIcon != null" >
+        admin_icon = #{record.adminIcon,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_admin
+    update tb_bookstore_admin
     set id = #{record.id,jdbcType=INTEGER},
       admin_name = #{record.adminName,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       is_lock = #{record.isLock,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      admin_icon = #{record.adminIcon,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xzl.bookstore.pojo.po.Admin" >
-    update tb_admin
+    update tb_bookstore_admin
     <set >
       <if test="adminName != null" >
         admin_name = #{adminName,jdbcType=VARCHAR},
@@ -213,16 +235,24 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="adminIcon != null" >
+        admin_icon = #{adminIcon,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xzl.bookstore.pojo.po.Admin" >
-    update tb_admin
+    update tb_bookstore_admin
     set admin_name = #{adminName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       is_lock = #{isLock,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      admin_icon = #{adminIcon,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

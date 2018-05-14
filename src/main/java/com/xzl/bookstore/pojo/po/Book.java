@@ -3,13 +3,13 @@ package com.xzl.bookstore.pojo.po;
 import java.util.Date;
 
 public class Book {
-    private Long id;
+    private Integer id;
 
     private String bookname;
 
     private Long price;
 
-    private Long categoryId;
+    private Integer categoryId;
 
     private String author;
 
@@ -25,13 +25,27 @@ public class Book {
 
     private Integer salesVolume;
 
-    private Byte state;
+    private Integer state;
 
-    public Long getId() {
+    private Integer discount;
+
+    private Long currentPrice;
+
+    private String publishPlace;
+
+    private String userStar;
+
+    private String isbn;
+
+    private String bookIcon;
+
+    private Integer bookType;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,11 +65,11 @@ public class Book {
         this.price = price;
     }
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -115,11 +129,67 @@ public class Book {
         this.salesVolume = salesVolume;
     }
 
-    public Byte getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Byte state) {
+    public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public Long getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(Long currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
+    public String getPublishPlace() {
+        return publishPlace;
+    }
+
+    public void setPublishPlace(String publishPlace) {
+        this.publishPlace = publishPlace == null ? null : publishPlace.trim();
+    }
+
+    public String getUserStar() {
+        return userStar;
+    }
+
+    public void setUserStar(String userStar) {
+        this.userStar = userStar == null ? null : userStar.trim();
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn == null ? null : isbn.trim();
+    }
+
+    public String getBookIcon() {
+        return bookIcon;
+    }
+
+    public void setBookIcon(String bookIcon) {
+        this.bookIcon = bookIcon == null ? null : bookIcon.trim();
+    }
+
+    public Integer getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(Integer bookType) {
+        this.bookType = bookType;
     }
 }

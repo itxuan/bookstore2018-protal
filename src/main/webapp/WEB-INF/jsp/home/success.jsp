@@ -8,7 +8,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>付款成功页面</title>
+    <title>注册成功页面</title>
     <link rel="stylesheet"  type="text/css" href="${ctx}/AmazeUI-2.4.2/assets/css/amazeui.css"/>
     <link href="${ctx}/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
     <link href="${ctx}/basic/css/demo.css" rel="stylesheet" type="text/css" />
@@ -30,8 +30,8 @@
         <div class="successInfo">
             <div class="option">
                 <span class="info">您可以</span>
-                <a href="${ctx}/index" class="J_MakePoint">暂不登录<span>去书城看看</span></a>
-                <a href="${ctx}/login" class="J_MakePoint">去<span>登录</span></a>
+                暂不登录<a href="${ctx}/home/index" class="J_MakePoint"><span>去书城看看</span></a>
+                <a href="${ctx}/home/login" class="J_MakePoint">去<span>登录</span></a>
             </div>
         </div>
     </div>

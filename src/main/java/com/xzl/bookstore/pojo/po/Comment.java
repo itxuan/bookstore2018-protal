@@ -9,15 +9,19 @@ public class Comment {
 
     private Integer orderId;
 
-    private String isImage;
+    private String content;
+
+    private String image;
+
+    private Integer isImage;
 
     private Date createTime;
 
-    private String isDetele;
-
-    private Integer likeCount;
+    private Integer isDetele;
 
     private Integer bookId;
+
+    private Integer commentStar;
 
     public Integer getId() {
         return id;
@@ -43,12 +47,28 @@ public class Comment {
         this.orderId = orderId;
     }
 
-    public String getIsImage() {
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
+    }
+
+    public Integer getIsImage() {
         return isImage;
     }
 
-    public void setIsImage(String isImage) {
-        this.isImage = isImage == null ? null : isImage.trim();
+    public void setIsImage(Integer isImage) {
+        this.isImage = isImage;
     }
 
     public Date getCreateTime() {
@@ -59,20 +79,12 @@ public class Comment {
         this.createTime = createTime;
     }
 
-    public String getIsDetele() {
+    public Integer getIsDetele() {
         return isDetele;
     }
 
-    public void setIsDetele(String isDetele) {
-        this.isDetele = isDetele == null ? null : isDetele.trim();
-    }
-
-    public Integer getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(Integer likeCount) {
-        this.likeCount = likeCount;
+    public void setIsDetele(Integer isDetele) {
+        this.isDetele = isDetele;
     }
 
     public Integer getBookId() {
@@ -81,5 +93,13 @@ public class Comment {
 
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
+    }
+
+    public Integer getCommentStar() {
+        return commentStar;
+    }
+
+    public void setCommentStar(Integer commentStar) {
+        this.commentStar = commentStar;
     }
 }

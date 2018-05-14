@@ -58,29 +58,27 @@
                 <hr/>
                 <ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails">
 
-                    <c:forEach items="${addressList }" var="address">
-                        <li class="user-addresslist defaultAddr">
-                            <span class="new-option-r"><i class="am-icon-check-circle"></i>默认地址</span>
-                            <p class="new-tit new-p-re">
-                                <span class="new-txt">${address.receiveName}</span>
-                                <span class="new-txt-rd2">${address.telephone}</span>
-                            </p>
-                            <div class="new-mu_l2a new-p-re">
-                                <p class="new-mu_l2cw">
-                                    <span class="title">地址：</span>
-                                    <span class="province">${address.province}</span>
-                                    <span class="city">${address.city}</span>
-                                    <span class="dist">${address.area}</span>
-                                    <span class="street">${address.detailAddress}</span></p>
-                            </div>
-                            <div class="new-addr-btn">
-                                <a onclick="update(${address.id});"><i class="am-icon-edit"></i>编辑</a>
-                                <span class="new-addr-bar">|</span>
-                                <a href="javascript:void(0);" onclick="delClick(${address.id});"><i class="am-icon-trash"></i>删除</a>
-                            </div>
-                        </li>
+                    <%--<c:forEach items="${addressList }" var="address">--%>
+                        <%--<li class="user-addresslist defaultAddr">--%>
+                            <%--<span class="new-option-r"><i class="am-icon-check-circle"></i>默认地址</span>--%>
+                            <%--<p class="new-tit new-p-re">--%>
+                                <%--<span class="new-txt">${address.receiveName}</span>--%>
+                                <%--<span class="new-txt-rd2">${address.t}</span>--%>
+                            <%--</p>--%>
+                            <%--<div class="new-mu_l2a new-p-re">--%>
+                                <%--<p class="new-mu_l2cw">--%>
+                                    <%--<span class="title">地址：</span>--%>
 
-                    </c:forEach>
+                                    <%--<span class="street">${address}</span></p>--%>
+                            <%--</div>--%>
+                            <%--<div class="new-addr-btn">--%>
+                                <%--<a onclick="update(${address.id});"><i class="am-icon-edit"></i>编辑</a>--%>
+                                <%--<span class="new-addr-bar">|</span>--%>
+                                <%--<a href="javascript:void(0);" onclick="delClick(${address.id});"><i class="am-icon-trash"></i>删除</a>--%>
+                            <%--</div>--%>
+                        <%--</li>--%>
+
+                    <%--</c:forEach>--%>
                 </ul>
                 <div class="clear"></div>
                 <%--<a class="new-abtn-type" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">添加新地址</a>--%>
@@ -109,23 +107,14 @@
                                 <div class="am-form-group">
                                     <label for="user-phone" class="am-form-label">手机号码</label>
                                     <div class="am-form-content">
-                                        <input id="user-phone" placeholder="手机号必填" type="tel" value="${address.telephone}">
-                                    </div>
-                                </div>
-                                <div class="am-form-group">
-                                    <label class="am-form-label">所在地</label>
-                                    <div class="am-form-content address">
-                                        <%--<input id="user-province" placeholder="省" type="text" value="${address.province}">--%>
-                                        <%--<input id="user-city" placeholder="市" type="text" value="${address.city}">--%>
-                                        <%--<input id="user-area" placeholder="区" type="text" value="${address.area}">--%>
-
+                                        <input id="user-phone" placeholder="手机号必填" type="tel" value="${address.receiveTelephone}">
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
                                     <label for="user-intro" class="am-form-label">详细地址</label>
                                     <div class="am-form-content">
-                                        <textarea class="" rows="3" id="user-intro" placeholder="输入详细地址">${address.detailAddress}</textarea>
+                                        <textarea class="" rows="3" id="user-intro" placeholder="输入详细地址">${address.completeAddress}</textarea>
 
                                     </div>
                                 </div>
@@ -174,9 +163,6 @@
         var receiveName = $('#user-name').val();
         var phone = $('#user-phone').val();
         var detail = $('#user-intro').val();
-        // var area = $('#user-area').val();
-        // var city = $('#user-city').val();
-        // var province = $('#user-province').val();
         console.log(receiveName);
         console.log(phone);
         console.log(detail);
@@ -189,11 +175,11 @@
             data: {
                 'id':${address.id},
                 'receiveName':receiveName,
-                'telephone':phone,
+                'receiveTelephone':phone,
                 // 'province':province,
                 // 'city':city,
                 // 'area':area,
-                'detailAddress':detail
+                'completeAddress':detail
             },
             dataType: "json",
             success: function(result) {                    //result为返回值

@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzl.bookstore.dao.OrderItemMapper" >
   <resultMap id="BaseResultMap" type="com.xzl.bookstore.pojo.po.OrderItem" >
-    <result column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="book_id" property="bookId" jdbcType="INTEGER" />
     <result column="amount" property="amount" jdbcType="INTEGER" />
-    <result column="price" property="price" jdbcType="DECIMAL" />
-    <result column="total" property="total" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="book_param_id" property="bookParamId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, book_id, amount, price, total
+    id, book_id, amount, price, order_id, book_param_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xzl.bookstore.pojo.po.OrderItemExample" >
     select
@@ -75,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_order_item
+    from tb_bookstore_order_item
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,20 +84,32 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bookstore_order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_bookstore_order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
   <delete id="deleteByExample" parameterType="com.xzl.bookstore.pojo.po.OrderItemExample" >
-    delete from tb_order_item
+    delete from tb_bookstore_order_item
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.xzl.bookstore.pojo.po.OrderItem" >
-    insert into tb_order_item (id, book_id, amount, 
-      price, total)
-    values (#{id,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, 
-      #{price,jdbcType=DECIMAL}, #{total,jdbcType=DECIMAL})
+    insert into tb_bookstore_order_item (id, book_id, amount, 
+      price, order_id, book_param_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{bookId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, 
+      #{price,jdbcType=BIGINT}, #{orderId,jdbcType=INTEGER}, #{bookParamId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.xzl.bookstore.pojo.po.OrderItem" >
-    insert into tb_order_item
+    insert into tb_bookstore_order_item
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -110,13 +123,16 @@
       <if test="price != null" >
         price,
       </if>
-      <if test="total != null" >
-        total,
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="bookParamId != null" >
+        book_param_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="bookId != null" >
         #{bookId,jdbcType=INTEGER},
@@ -125,24 +141,27 @@
         #{amount,jdbcType=INTEGER},
       </if>
       <if test="price != null" >
-        #{price,jdbcType=DECIMAL},
+        #{price,jdbcType=BIGINT},
       </if>
-      <if test="total != null" >
-        #{total,jdbcType=DECIMAL},
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="bookParamId != null" >
+        #{bookParamId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xzl.bookstore.pojo.po.OrderItemExample" resultType="java.lang.Integer" >
-    select count(*) from tb_order_item
+    select count(*) from tb_bookstore_order_item
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_order_item
+    update tb_bookstore_order_item
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.bookId != null" >
         book_id = #{record.bookId,jdbcType=INTEGER},
@@ -151,10 +170,13 @@
         amount = #{record.amount,jdbcType=INTEGER},
       </if>
       <if test="record.price != null" >
-        price = #{record.price,jdbcType=DECIMAL},
+        price = #{record.price,jdbcType=BIGINT},
       </if>
-      <if test="record.total != null" >
-        total = #{record.total,jdbcType=DECIMAL},
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookParamId != null" >
+        book_param_id = #{record.bookParamId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -162,14 +184,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_order_item
-    set id = #{record.id,jdbcType=INTEGER},
+    update tb_bookstore_order_item
+    set id = #{record.id,jdbcType=VARCHAR},
       book_id = #{record.bookId,jdbcType=INTEGER},
       amount = #{record.amount,jdbcType=INTEGER},
-      price = #{record.price,jdbcType=DECIMAL},
-      total = #{record.total,jdbcType=DECIMAL}
+      price = #{record.price,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      book_param_id = #{record.bookParamId,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzl.bookstore.pojo.po.OrderItem" >
+    update tb_bookstore_order_item
+    <set >
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="bookParamId != null" >
+        book_param_id = #{bookParamId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzl.bookstore.pojo.po.OrderItem" >
+    update tb_bookstore_order_item
+    set book_id = #{bookId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=INTEGER},
+      book_param_id = #{bookParamId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

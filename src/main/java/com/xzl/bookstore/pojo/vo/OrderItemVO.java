@@ -5,7 +5,7 @@ import com.xzl.bookstore.pojo.po.OrderItem;
 
 import java.util.List;
 
-public class OrderItemVO extends Order{
+public class OrderItemVO extends Order {
 
     private String endTimeVO;
     private String createTimeVO;

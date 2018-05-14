@@ -3,7 +3,7 @@ package com.xzl.bookstore.pojo.po;
 import java.util.Date;
 
 public class BookCategory {
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -15,13 +15,13 @@ public class BookCategory {
 
     private Integer parent;
 
-    private Byte isParent;
+    private Integer isParent;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -65,11 +65,11 @@ public class BookCategory {
         this.parent = parent;
     }
 
-    public Byte getIsParent() {
+    public Integer getIsParent() {
         return isParent;
     }
 
-    public void setIsParent(Byte isParent) {
+    public void setIsParent(Integer isParent) {
         this.isParent = isParent;
     }
 }

@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class MyUtil {
 
@@ -75,8 +76,9 @@ public class MyUtil {
      */
 
     public static String generateOrderNumber() {
-        DateFormat format = new SimpleDateFormat("yyMMddHHmmss");
-        String orderNumber = WebConfig.ORDER_PREFIX + format;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String format = sdf.format(new Date());
+        String orderNumber = WebConfig.ORDER_PREFIX + format +(Math.random()*9+1)*1000;
         return orderNumber;
     }
 
@@ -140,4 +142,10 @@ public class MyUtil {
     }
 
     public static final String key = "bookstore";
+
+    public static final String generateOrderItemId(){
+
+        return UUID.randomUUID().toString().replace("-","").substring(0,6);
+    }
+
 }

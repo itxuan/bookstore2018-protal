@@ -494,6 +494,146 @@ public class AdminExample {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
+
+        public Criteria andLastLoginIpIsNull() {
+            addCriterion("last_login_ip is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpIsNotNull() {
+            addCriterion("last_login_ip is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpEqualTo(String value) {
+            addCriterion("last_login_ip =", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpNotEqualTo(String value) {
+            addCriterion("last_login_ip <>", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpGreaterThan(String value) {
+            addCriterion("last_login_ip >", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpGreaterThanOrEqualTo(String value) {
+            addCriterion("last_login_ip >=", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpLessThan(String value) {
+            addCriterion("last_login_ip <", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpLessThanOrEqualTo(String value) {
+            addCriterion("last_login_ip <=", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpLike(String value) {
+            addCriterion("last_login_ip like", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpNotLike(String value) {
+            addCriterion("last_login_ip not like", value, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpIn(List<String> values) {
+            addCriterion("last_login_ip in", values, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpNotIn(List<String> values) {
+            addCriterion("last_login_ip not in", values, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpBetween(String value1, String value2) {
+            addCriterion("last_login_ip between", value1, value2, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIpNotBetween(String value1, String value2) {
+            addCriterion("last_login_ip not between", value1, value2, "lastLoginIp");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconIsNull() {
+            addCriterion("admin_icon is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconIsNotNull() {
+            addCriterion("admin_icon is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconEqualTo(String value) {
+            addCriterion("admin_icon =", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconNotEqualTo(String value) {
+            addCriterion("admin_icon <>", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconGreaterThan(String value) {
+            addCriterion("admin_icon >", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconGreaterThanOrEqualTo(String value) {
+            addCriterion("admin_icon >=", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconLessThan(String value) {
+            addCriterion("admin_icon <", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconLessThanOrEqualTo(String value) {
+            addCriterion("admin_icon <=", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconLike(String value) {
+            addCriterion("admin_icon like", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconNotLike(String value) {
+            addCriterion("admin_icon not like", value, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconIn(List<String> values) {
+            addCriterion("admin_icon in", values, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconNotIn(List<String> values) {
+            addCriterion("admin_icon not in", values, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconBetween(String value1, String value2) {
+            addCriterion("admin_icon between", value1, value2, "adminIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminIconNotBetween(String value1, String value2) {
+            addCriterion("admin_icon not between", value1, value2, "adminIcon");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

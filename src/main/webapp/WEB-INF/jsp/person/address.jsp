@@ -63,7 +63,7 @@
                             <span class="new-option-r"><i class="am-icon-check-circle"></i>默认地址</span>
                             <p class="new-tit new-p-re">
                                 <span class="new-txt">${address.receiveName}</span>
-                                <span class="new-txt-rd2">${address.telephone}</span>
+                                <span class="new-txt-rd2">${address.receiveTelephone}</span>
                             </p>
                             <div class="new-mu_l2a new-p-re">
                                 <p class="new-mu_l2cw">
@@ -71,7 +71,7 @@
                                     <%--<span class="province">${address.province}</span>--%>
                                     <%--<span class="city">${address.city}</span>--%>
                                     <%--<span class="dist">${address.area}</span>--%>
-                                    <span class="street">${address.detailAddress}</span></p>
+                                    <span class="street">${address.completeAddress}</span></p>
                             </div>
                             <div class="new-addr-btn">
                                 <a onclick="update(${address.id});"><i class="am-icon-edit"></i>编辑</a>
@@ -108,7 +108,7 @@
                                 <div class="am-form-group">
                                     <label for="user-phone" class="am-form-label">手机号码</label>
                                     <div class="am-form-content">
-                                        <input id="user-phone" placeholder="手机号必填" type="email">
+                                        <input id="user-phone" placeholder="手机号必填" type="text" onkeyup="value=value.replace(/[^\d]/g,'')">
                                     </div>
                                 </div>
 
@@ -203,13 +203,15 @@
             url: "${ctx}/person/address/add",
             data: {
                 'receiveName':receiveName,
-                'telephone':phone,
-                'detailAddress':detail
+                'receiveTelephone':phone,
+                'completeAddress':detail
             },
             dataType: "json",
             success: function(result) {                    //result为返回值
                 if(result.success) {
+
                     window.location.href="${ctx}/person/address/list";
+
                 } else {
                     alert(result.message);
                 }

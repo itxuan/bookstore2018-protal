@@ -5,7 +5,13 @@ import com.xzl.bookstore.util.Result;
 
 public interface UserService {
 
-    User get(Integer id);
+    User getUserById(Integer id);
 
     Result update(User user);
+
+    User login(User user);
+
+    boolean registerAjax(String nickName);
+
+    int register(User user);
 }

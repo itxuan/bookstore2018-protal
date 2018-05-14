@@ -16,9 +16,8 @@
         <div class="topMessage">
             <div class="menu-hd">
                 <c:if test="${session_user == null}">
-                    <a href="${ctx}/login" target="_top" class="h">亲，请登录</a>
-                    <a href="${ctx}/register" target="_top">免费注册</a>
-                    <a href="${ctx}/person/logout" target="_top">注销</a>
+                    <a href="${ctx}/home/login" target="_top" class="h">亲，请登录</a>
+                    <a href="${ctx}/home/register" target="_top">免费注册</a>
                 </c:if>
                 <c:if test="${session_user != null}">
                     <a class="h" disabled="disabled">欢迎您，<span>${session_user.nickname}</span></a>
@@ -29,7 +28,7 @@
     <ul class="message-r">
         <div class="topMessage home">
             <div class="menu-hd">
-                <a href="${ctx}/index" target="_top" class="h">商城首页</a>
+                <a href="${ctx}/home/index" target="_top" class="h">商城首页</a>
             </div>
         </div>
         <div class="topMessage my-shangcheng">
@@ -38,8 +37,8 @@
             </div>
         </div>
         <div class="topMessage mini-cart">
-            <div class="menu-hd"><a id="mc-menu-hd" href="${ctx}/person/cart" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i>
-                <span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a>
+            <div class="menu-hd"><a id="mc-menu-hd" href="${ctx}/person/cart/list" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i>
+                <span>购物车</span><strong id="J_MiniCartNum" class="h"></strong></a>
             </div>
         </div>
 

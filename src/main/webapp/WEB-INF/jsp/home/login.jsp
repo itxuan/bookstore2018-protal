@@ -39,7 +39,8 @@
             <div class="clear"></div>
 
             <div class="login-form">
-                <form method="post" action="${ctx}/person/login">
+                <label id="loginMessage"></label>
+                <form method="post" action="${ctx}/home/login">
                     <div class="user-name">
                         <label for="user"><i class="am-icon-user"></i></label>
                         <input type="text" name="username" id="user" placeholder="用户名">
@@ -49,7 +50,7 @@
                         <input type="password" name="password" id="password" placeholder="请输入密码">
                     </div>
                     <div class="am-cf">
-                        <button type="submit" onclick="return check()" id="loginButton" class="am-btn am-btn-primary am-btn-sm">
+                        <button type="button" id="loginButton" class="am-btn am-btn-primary am-btn-sm">
                             登录
                         </button>
                     </div>
@@ -59,7 +60,7 @@
             <div class="login-links">
                 <%--<label for="remember-me"><input id="remember-me" type="checkbox">记住密码</label>--%>
                 <%--<a href="#" class="am-fr">忘记密码</a>--%>
-                <a href="${ctx}/register" class="zcnext am-fr am-btn-default">注册</a>
+                <a href="${ctx}/home/register" class="zcnext am-fr am-btn-default">注册</a>
                 <br />
             </div>
 
@@ -71,23 +72,45 @@
 <jsp:include page="/common/home-footer.jsp"></jsp:include>
 </body>
 </html>
-
 <script>
-    function check() {
+    $('input[name=username]').focus(function () {
+        $('#loginMessage').html("");
+    });
+
+    $('input[name=password]').focus(function () {
+        $('#loginMessage').html("");
+    });
+
+    $('#loginButton').click(function () {
         var $user = $('input[name=username]').val();
         var $password = $('input[name=password]').val();
         console.log($user);
         if($user == "" || $user == null){
             alert("用户名不能为空");
-            return false;
+            return ;
         }
         if($password == "" || $password == null){
             alert("密码不能为空");
-            return false;
-        }else {
-            $('#loginButton').submit();
-            return true;
+            return ;
         }
-    }
+
+        $.ajax({
+            type:'post',
+            url:'${ctx}/home/login',
+            data:{
+                nickName:$user,
+                password:$password
+            },
+            success:function (data) {
+                console.log(data);
+                if(data.code == 1){
+                    alert("欢迎回来，您上次登录的ip地址为"+data.data);
+                    location.href='${ctx}/home/index';
+                }else {
+                    $('#loginMessage').html(""+data.message).css('color','red');
+                }
+            }
+        })
+    });
 
 </script>

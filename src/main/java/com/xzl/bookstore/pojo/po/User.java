@@ -23,9 +23,13 @@ public class User {
 
     private String isLock;
 
+    private Long account;
+
     private Date updateTime;
 
     private String ip;
+
+    private String username;
 
     public Integer getId() {
         return id;
@@ -107,6 +111,14 @@ public class User {
         this.isLock = isLock == null ? null : isLock.trim();
     }
 
+    public Long getAccount() {
+        return account;
+    }
+
+    public void setAccount(Long account) {
+        this.account = account;
+    }
+
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -123,21 +135,11 @@ public class User {
         this.ip = ip == null ? null : ip.trim();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
-                ", gender=" + gender +
-                ", birthday=" + birthday +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                ", icon='" + icon + '\'' +
-                ", createTime=" + createTime +
-                ", isLock='" + isLock + '\'' +
-                ", updateTime=" + updateTime +
-                ", ip='" + ip + '\'' +
-                '}';
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 }

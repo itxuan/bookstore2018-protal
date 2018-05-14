@@ -3,26 +3,27 @@ package com.xzl.bookstore.pojo.po;
 import java.util.Date;
 
 public class Order {
-
     private Integer id;
 
     private Integer userId;
 
-    private String orderItemIds;
+    private String userMessage;
 
-    private Byte status;
-
-    private String receiveName;
-
-    private String receiveTelephone;
+    private Integer status;
 
     private Date createTime;
 
     private Date endTime;
 
+    private Long orderTotal;
+
+    private Integer addressId;
+
+    private Date sendBookTime;
+
     private String isDelete;
 
-    private Long sum;
+    private String orderNumber;
 
     public Integer getId() {
         return id;
@@ -40,36 +41,20 @@ public class Order {
         this.userId = userId;
     }
 
-    public String getOrderItemIds() {
-        return orderItemIds;
+    public String getUserMessage() {
+        return userMessage;
     }
 
-    public void setOrderItemIds(String orderItemIds) {
-        this.orderItemIds = orderItemIds == null ? null : orderItemIds.trim();
+    public void setUserMessage(String userMessage) {
+        this.userMessage = userMessage == null ? null : userMessage.trim();
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getReceiveName() {
-        return receiveName;
-    }
-
-    public void setReceiveName(String receiveName) {
-        this.receiveName = receiveName == null ? null : receiveName.trim();
-    }
-
-    public String getReceiveTelephone() {
-        return receiveTelephone;
-    }
-
-    public void setReceiveTelephone(String receiveTelephone) {
-        this.receiveTelephone = receiveTelephone == null ? null : receiveTelephone.trim();
     }
 
     public Date getCreateTime() {
@@ -88,6 +73,30 @@ public class Order {
         this.endTime = endTime;
     }
 
+    public Long getOrderTotal() {
+        return orderTotal;
+    }
+
+    public void setOrderTotal(Long orderTotal) {
+        this.orderTotal = orderTotal;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
+    public Date getSendBookTime() {
+        return sendBookTime;
+    }
+
+    public void setSendBookTime(Date sendBookTime) {
+        this.sendBookTime = sendBookTime;
+    }
+
     public String getIsDelete() {
         return isDelete;
     }
@@ -96,27 +105,11 @@ public class Order {
         this.isDelete = isDelete == null ? null : isDelete.trim();
     }
 
-    public Long getSum() {
-        return sum;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setSum(Long sum) {
-        this.sum = sum;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", orderItemIds='" + orderItemIds + '\'' +
-                ", status=" + status +
-                ", receiveName='" + receiveName + '\'' +
-                ", receiveTelephone='" + receiveTelephone + '\'' +
-                ", createTime=" + createTime +
-                ", endTime=" + endTime +
-                ", isDelete='" + isDelete + '\'' +
-                ", sum=" + sum +
-                '}';
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber == null ? null : orderNumber.trim();
     }
 }

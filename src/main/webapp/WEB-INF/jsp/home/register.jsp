@@ -39,7 +39,8 @@
 
                 <div class="am-tabs-bd">
                     <div class="am-tab-panel am-active">
-                        <form method="post" action="${ctx}/person/register">
+                        <label id="registerMessage"></label>
+                        <form>
                             <div class="user-email">
                                 <label for="username"><i class="am-icon-envelope-o"></i></label>
                                 <input type="text" name="username" id="username" placeholder="请输入账号">
@@ -50,13 +51,21 @@
                             </div>
                             <div class="user-pass">
                                 <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
-                                <input type="password" name="" id="passwordRepeat" placeholder="确认密码">
+                                <input type="password" name="rePassword" id="passwordRepeat" placeholder="确认密码">
                             </div>
                             <div class="am-cf">
-                                <input type="submit" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
+                                <button type="button" id="loginButton" class="am-btn am-btn-primary am-btn-sm">
+                                    注册
+                                </button>
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="login-links">
+                    <%--<label for="remember-me"><input id="remember-me" type="checkbox">记住密码</label>--%>
+                    <%--<a href="#" class="am-fr">忘记密码</a>--%>
+                    <a href="${ctx}/home/login" class="zcnext am-fr am-btn-default">登录</a>
+                    <br />
                 </div>
             </div>
 
@@ -65,5 +74,72 @@
 
     <jsp:include page="/common/home-footer.jsp"></jsp:include>
 </body>
-
 </html>
+<script>
+    $('input[name=username]').focus(function () {
+        $('#registerMessage').html("");
+    });
+
+    $('input[name=password]').focus(function () {
+        $('#registerMessage').html("");
+    });
+    $('input[name=rePassword]').focus(function () {
+        $('#registerMessage').html("");
+    });
+
+    $('#loginButton').click(function () {
+        var $user = $('input[name=username]').val();
+        var $password = $('input[name=password]').val();
+        var $rePassword = $('input[name=rePassword]').val();
+        console.log($user);
+        if($user == "" || $user == null){
+            $('#registerMessage').html("用户名不能为空").css('color','red');
+            return ;
+
+        }
+        if($password == "" || $password == null || $password.length < 6){
+            $('#registerMessage').html("密码不能为空，且长度不少于6位").css('color','red');
+            return ;
+        }
+
+        if($rePassword == "" || $rePassword == null){
+            $('#registerMessage').html("确认密码不能为空").css('color','red');
+            return ;
+        }
+        if(!($password === $rePassword)){
+            $('#registerMessage').html("两次密码输入不一致").css('color','red');
+            return ;
+        }
+
+        $.ajax({
+            type:'post',
+            url:'${ctx}/home/register/ajax',
+            data:{
+                nickName:$user,
+                password:$password,
+                rePassword:$rePassword
+            },
+            success:function (data) {
+                console.log(data);
+                if(data.success){
+                    $.ajax({
+                        type:'post',
+                        url:'${ctx}/home/register',
+                        data:{
+                            nickName:$user,
+                            password:$password,
+                        },
+                        success:function (data) {
+                            if(data.code == 1){
+                                location.href="${ctx}/home/registerSuccess";
+                            }
+                        }
+                    })
+                }else {
+                    $('#registerMessage').html("用户名已经被注册").css('color','red');
+                }
+            }
+        })
+    });
+
+</script>

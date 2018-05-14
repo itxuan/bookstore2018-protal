@@ -26,7 +26,8 @@
         <li class="person">
             <span>我的交易</span>
             <ul>
-                <li><a href="order.html">订单管理</a></li>
+                <li><a href="${ctx}/person/order/list">订单管理</a></li>
+                <li> <a href="${ctx}/person/comment/list">评价管理</a></li>
                 <%--<li> <a href="change.html">退款售后</a></li>--%>
             </ul>
         </li>

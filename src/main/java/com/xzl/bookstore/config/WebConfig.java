@@ -23,8 +23,8 @@ public class WebConfig {
     /*一般是服务器 500*/
 
     public static final String MESSAGE_500 = "服务器异常";
-    public static final String MESSAGE_4 = "账户已经被注册";
-    public static final String MESSAGE_5 = "账户被禁用";
+    public static final String MESSAGE_4 = "该账号已经被注册";
+    public static final String MESSAGE_5 = "该账号被禁用";
     public static final String MESSAGE_6 = "用户不存在";
     public static final String MESSAGE_7 = "手机号码格式错误";
     public static final String MESSAGE_8 = "验证码错误";

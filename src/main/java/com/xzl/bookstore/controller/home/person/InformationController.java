@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -30,17 +31,21 @@ public class InformationController {
 
     @RequestMapping(value = "information/list",method = RequestMethod.GET)
     public ModelAndView information(ModelAndView mv){
-        User sessionUser = (User)session.getAttribute("session_user");
-        Integer userId = SessionUtil.getUserId(sessionUser);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //todo 测试
-        userId =1;
-        User user1 = userService.get(userId);
-        Date birthday = user1.getBirthday();
-        String format = sdf.format(birthday);
-        mv.addObject("user",user1);
-        mv.addObject("birthday",format);
+
+        User user = userService.getUserById( getCurrentUserId());
+        Date birthday = user.getBirthday();
+        Date createTime = user.getCreateTime();
+        if(birthday != null){
+            String format = sdf.format(birthday);
+            mv.addObject("birthday",format);
+        }else {
+            String format = sdf.format(createTime);
+            mv.addObject("birthday",format);
+        }
+        mv.addObject("user",user);
+
         mv.setViewName("person/information");
         return mv;
     }
@@ -67,17 +72,15 @@ public class InformationController {
 
     @ResponseBody
     @RequestMapping(value = "password/update",method = RequestMethod.POST)
-    public Result updatePasword(String orderPassword, String newPassword, HttpSession session){
-        System.out.println("update method orderPassword=====> "+orderPassword +",newPassword===>"+newPassword);
-        User sessionUser = (User)session.getAttribute("session_user");
-        Integer userId = SessionUtil.getUserId(sessionUser);
-        //todo
-        userId =1;
-        User user = userService.get(userId);
+    public Result updatePassword(String oldPassword, String newPassword, HttpSession session){
+        User user = userService.getUserById(getCurrentUserId());
+
         String password = user.getPassword();
-        if(password!= null && MyUtil.MD5(password).equals(orderPassword)){
+        if(password.equals(MyUtil.MD5(oldPassword))){
             //与原密码相同
-            user.setPassword(newPassword);
+            logger.info(user.getNickname()+" 更改密码操作 oldPassword=====> "
+                    +oldPassword +",newPassword===>"+newPassword + "修改时间:"+LocalDateTime.now());
+            user.setPassword(MyUtil.MD5(newPassword));
             Result update = userService.update(user);
             return update;
         }else {
@@ -96,6 +99,13 @@ public class InformationController {
             return null;
         }
         return sessionUser;
+    }
+    private Integer getCurrentUserId(){
+        User sessionUser = (User)session.getAttribute("session_user");
+        if(sessionUser != null){
+            return sessionUser.getId();
+        }
+        return null;
     }
 
     @Autowired

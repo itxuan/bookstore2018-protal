@@ -11,7 +11,7 @@ public interface BookCategoryMapper {
 
     int deleteByExample(BookCategoryExample example);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(BookCategory record);
 
@@ -19,7 +19,7 @@ public interface BookCategoryMapper {
 
     List<BookCategory> selectByExample(BookCategoryExample example);
 
-    BookCategory selectByPrimaryKey(Long id);
+    BookCategory selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") BookCategory record, @Param("example") BookCategoryExample example);
 

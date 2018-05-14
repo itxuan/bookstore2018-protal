@@ -11,9 +11,9 @@ public class News {
 
     private Date createTime;
 
-    private String status;
+    private Integer status;
 
-    private Integer userId;
+    private Integer newsType;
 
     private String content;
 
@@ -49,20 +49,20 @@ public class News {
         this.createTime = createTime;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getNewsType() {
+        return newsType;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setNewsType(Integer newsType) {
+        this.newsType = newsType;
     }
 
     public String getContent() {

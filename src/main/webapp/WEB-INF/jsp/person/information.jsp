@@ -90,13 +90,7 @@
 
                             </div>
                         </div>
-                        <%--<div class="am-form-group">--%>
-                            <%--<label for="user-name" class="am-form-label">姓名</label>--%>
-                            <%--<div class="am-form-content">--%>
-                                <%--<input type="text" id="user-name2" placeholder="name">--%>
 
-                            <%--</div>--%>
-                        <%--</div>--%>
                         <div class="am-form-group">
                             <label class="am-form-label">性别</label>
                             <c:if test="${user.gender == 1}">
@@ -149,6 +143,7 @@
                                        style="height: 30px;width: 200px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" value="${birthday}"/>
                             </div>
                         </div>
+
                         <div class="am-form-group">
                             <label for="user-phone" class="am-form-label">电话</label>
                             <div class="am-form-content">

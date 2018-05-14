@@ -10,22 +10,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!--悬浮搜索框-->
-
 <div class="nav white">
-
     <div class="logoBig">
         <li><img src="${ctx}/images/logobig.png" /></li>
     </div>
 
     <div class="search-bar pr">
-        <a name="index_none_header_sysc" href="#"></a>
-        <form>
+        <%--<a name="index_none_header_sysc" href="#"></a>--%>
+        <form method="post" action="${ctx}/home/search">
             <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-            <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+            <input id="ai-topsearch"
+                   class="submit am-btn" value="搜索" index="1" type="submit">
         </form>
-        <br>
-        <a href="">高级搜索</a>
+            <a href="${ctx}/home/search" style="margin-left:550px">高级搜索</a>
+
     </div>
 </div>
 
 <div class="clear"></div>
+<script>
+    function search(item) {
+        console.log("search content"+ item);
+        $.ajax({
+            url:'',
+            type:'post',
+            data:{
+                '':item
+            },
+            dataType:'json',
+            success:function (data) {
+
+            }
+        });
+    }
+</script>
